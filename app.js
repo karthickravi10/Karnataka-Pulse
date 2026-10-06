@@ -1,0 +1,116 @@
+
+/* ===== EDIT HERE: sources are [name, link, kind, isKarnatakaSection]. kind: auto | rss | youtube ===== */
+const CFG={refreshMin:10,keepDays:7,perSource:12,
+S:[["Prajavani","https://www.prajavani.net/","auto",0],["Public TV","https://publictv.in/category/states/karnataka/","auto",1],
+["Asianet Kannada","https://kannada.asianetnews.com/news","auto",0],["Deccan Herald","https://www.deccanherald.com/india/karnataka","auto",1],
+["Udayavani","https://udayavani.com/news_menu/karnataka/686233764aee20e9709edfbb?lang=en","auto",1],
+["Vijay Karnataka","https://vijaykarnataka.com/news/karnataka/articlelist/10765233.cms","auto",1],
+["The Hindu - Karnataka","https://www.thehindu.com/news/national/karnataka/feeder/default.rss","rss",1],
+["Samyukta Karnataka","https://samyuktakarnataka.in/","auto",0],["TV9 Kannada","https://tv9kannada.com/","auto",0],["Eedina","https://eedina.com/","auto",1],
+["Naanu Gauri","https://naanugauri.com/","auto",1],["ETV Bharat Karnataka","https://www.etvbharat.com/kn/karnataka","auto",1],["Guarantee News","https://www.guaranteenews.com/","auto",1],
+["Times of India - Bengaluru","https://timesofindia.indiatimes.com/rssfeeds/-2128833038.cms","rss",1],["Sanjevani","https://sanjevani.com/","auto",0],
+["News18 Kannada","https://kannada.news18.com/","auto",0],["Kannada Prabha","https://www.kannadaprabha.com/","auto",0],
+["Hindustan Times - Bengaluru","https://www.hindustantimes.com/feeds/rss/cities/bengaluru-news/rssfeed.xml","rss",1],
+["TV9 Kannada (YouTube)","https://www.youtube.com/@tv9kannada","youtube",0],["Asianet Suvarna (YouTube)","https://www.youtube.com/@AsianetSuvarnaNews","youtube",0],
+["News18 Kannada (YouTube)","https://www.youtube.com/@News18Kannada","youtube",0],["NewsFirst Kannada (YouTube)","https://www.youtube.com/@NewsFirstKannada","youtube",0],
+["Republic Kannada (YouTube)","https://www.youtube.com/@RepublicKannada","youtube",0]],
+KAR:["karnataka","bengaluru","bangalore","mysuru","mysore","hubballi","belagavi","belgaum","mangaluru","kalaburagi","vidhana soudha","kannada","kannadiga","kpcc","bbmp","gba","bmtc","namma metro","kpsc","dharwad","davanagere","ballari","vijayapura","udupi","kodagu","hassan","tumakuru","mandya","raichur","bidar","shivamogga","chikkamagaluru","chitradurga","chikkaballapur","kolar","ramanagara","haveri","gadag","koppal","yadgir","bagalkot","chamarajanagar","uttara kannada","dakshina kannada","karwar","kalyana karnataka","cauvery","mekedatu","gruha lakshmi","gruha jyothi","anna bhagya","yuva nidhi","shakti scheme","siddaramaiah","shivakumar","kumaraswamy","vijayendra","ashoka","bommai","ಕರ್ನಾಟಕ","ಬೆಂಗಳೂರು","ಮೈಸೂರು","ಹುಬ್ಬಳ್ಳಿ","ಬೆಳಗಾವಿ","ಮಂಗಳೂರು","ಕಲಬುರಗಿ","ವಿಧಾನಸೌಧ","ಸಿದ್ದರಾಮಯ್ಯ","ಶಿವಕುಮಾರ್"],
+CAT:{"Politics":["minister","chief minister","cm","deputy cm","mla","mlc","mp","bjp","congress","jd(s)","jds","assembly","election","bypoll","cabinet","opposition","legislature","legislative council","governor","party","high command","kpcc","rally","resign","reshuffle","leadership","vidhana soudha","poll","ಸಿಎಂ","ಮುಖ್ಯಮಂತ್ರಿ","ಸಚಿವ","ಶಾಸಕ","ಬಿಜೆಪಿ","ಕಾಂಗ್ರೆಸ್","ಜೆಡಿಎಸ್","ಚುನಾವಣೆ","ಸಂಸದ"],
+"Law & Order":["police","arrest","arrested","murder","crime","court","high court","verdict","bail","fir","chargesheet","lokayukta","enforcement directorate","cbi","probe","investigation","communal","riot","clash","protest","violence","law and order","cyber crime","fraud","scam","accused","custody","encounter","ಪೊಲೀಸ್","ಬಂಧನ","ಕೊಲೆ","ಹೈಕೋರ್ಟ್","ನ್ಯಾಯಾಲಯ"],
+"Governance":["government","state government","scheme","budget","policy","department","bbmp","gba","corporation","municipal","bill","ordinance","notification","tender","revenue","irrigation","drought","flood","transport","metro","water supply","recruitment","kpsc","administration","officials","ias","transfer","guarantee","ಸರ್ಕಾರ","ಯೋಜನೆ","ಬಜೆಟ್"]},
+OTHER:["tamil nadu","kerala","andhra pradesh","telangana","maharashtra","mumbai","pune","delhi","uttar pradesh","lucknow","bihar","patna","gujarat","ahmedabad","west bengal","kolkata","punjab","rajasthan","madhya pradesh","odisha","assam","jammu","kashmir","hyderabad","chennai","goa","manipur","haryana","jharkhand","chhattisgarh","uttarakhand","himachal","modi","lok sabha","rajya sabha","parliament","prime minister","trump","pakistan","china","israel","gaza","ukraine"],
+TAGS:{"BJP":["bjp","ಬಿಜೆಪಿ"],"Congress":["congress","ಕಾಂಗ್ರೆಸ್"],"JD(S)":["jd(s)","jds","ಜೆಡಿಎಸ್"],"Siddaramaiah":["siddaramaiah","ಸಿದ್ದರಾಮಯ್ಯ"],"DK Shivakumar":["shivakumar","ಶಿವಕುಮಾರ್"],"Kumaraswamy":["kumaraswamy","ಕುಮಾರಸ್ವಾಮಿ"],"Vijayendra":["vijayendra","ವಿಜಯೇಂದ್ರ"]}};
+/* ===== no need to edit below ===== */
+const $=i=>document.getElementById(i),LS=localStorage,now=()=>Math.floor(Date.now()/1000),IND=/[\u0900-\u0DFF]/,KN=/[\u0C80-\u0CFF]/;
+const J=(k,d)=>{try{return JSON.parse(LS[k])||d}catch{return d}};
+const EXT=location.protocol.endsWith('extension:'),ST=window.chrome&&chrome.storage&&chrome.storage.local;let PERM='checking…',ITEMS=[],FC=J('kp_feeds',{}),CH=J('kp_chan2',{}),LOG={},TOK=0,TNO=0,LIM=60,dirty=0,busy=false,last=+LS.kp_last||0,DONE=0,mode='foc',orig=false;const seen=+LS.kp_seen||0;
+addEventListener('beforeunload',()=>LS.kp_seen=now());
+let T;const save=()=>{ITEMS=ITEMS.filter(i=>i.ts>now()-(CFG.keepDays+1)*86400);clearTimeout(T);T=setTimeout(()=>ST&&ST.set({kp_items:ITEMS}),1500)};
+addEventListener('pagehide',()=>ST&&ST.set({kp_items:ITEMS}));
+addEventListener('error',e=>{if(e.target.tagName=='IMG'){const t=e.target.closest('.th');t&&t.remove()}},true);
+const PX=[u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://corsproxy.io/?url='+encodeURIComponent(u)];
+async function get(url,only){const why=[];for(const [i,t] of (only?[url]:[url,...PX.map(p=>p(url))]).entries()){const nm=i?'proxy'+i:'direct';try{const c=new AbortController(),id=setTimeout(()=>c.abort(),20000),r=await fetch(t,{signal:c.signal,credentials:'omit',referrerPolicy:'no-referrer'});clearTimeout(id);if(r.ok){const x=await r.text();if(x.length)return x;why.push(nm+': empty')}else why.push(nm+': HTTP '+r.status)}catch(e){why.push(nm+': '+(e.name=='AbortError'?'timeout':'blocked'))}}throw new Error(why.join(', '))}
+const ta=document.createElement('textarea');
+const clean=h=>{ta.innerHTML=(h||'').replace(/<(script|style)[\s\S]*?<\/\1>/gi,' ').replace(/<[^>]+>/g,' ');return ta.value.replace(/\s+/g,' ').trim()};
+const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function parseFeed(x){const d=new DOMParser().parseFromString(x,'text/xml');return [...d.querySelectorAll('item,entry')].map(e=>{const t=n=>{const q=e.getElementsByTagName(n)[0];return q?q.textContent:''};
+ let link=t('link').trim();const l=[...e.getElementsByTagName('link')].find(a=>a.getAttribute('href'));if(l)link=l.getAttribute('href');
+ const dt=Date.parse(t('pubDate')||t('published')||t('updated')||t('dc:date'));
+ let img='';const vid=t('yt:videoId'),th=e.getElementsByTagName('media:thumbnail')[0],mc=[...e.getElementsByTagName('media:content'),...e.getElementsByTagName('enclosure')].find(x=>/image|\.(jpe?g|png|webp)/i.test((x.getAttribute('type')||'')+(x.getAttribute('url')||'')));
+ img=vid?'https://i.ytimg.com/vi/'+vid+'/mqdefault.jpg':th?th.getAttribute('url'):mc?mc.getAttribute('url'):'';if(!img){const m=(t('content:encoded')||t('description')||t('summary')||t('content')).match(/<img[^>]+src=["']([^"']+)/i);if(m)img=m[1]}try{img=img?new URL(img,link).href:''}catch{img=''}
+ return{url:link,img,title:clean(t('title')),body:clean(t('media:description')||t('content:encoded')||t('description')||t('summary')||t('content')),ts:isNaN(dt)?now():Math.floor(dt/1000),video:t('yt:videoId')}}).filter(e=>e.url&&e.title)}
+async function discover(url){if(url in FC)return FC[url];const d=new DOMParser().parseFromString(await get(url),'text/html');
+ let c=[...d.querySelectorAll('link[type*="rss"],link[type*="atom"]')].map(l=>{try{return new URL(l.getAttribute('href'),url).href}catch{return''}}).filter(Boolean);
+ const o=new URL(url).origin,b=url.replace(/\/$/,'');if(!url.includes('?'))c.push(b+'/feed',b+'/rss');c.push(o+'/feed',o+'/rss',o+'/rss.xml');FC[url]='';
+ for(const f of new Set(c)){try{if(parseFeed(await get(f)).length){FC[url]=f;break}}catch{}}LS.kp_feeds=JSON.stringify(FC);return FC[url]}
+function scrape(h,url){const d=new DOMParser().parseFromString(h,'text/html'),host=new URL(url).host.replace('www.',''),s=new Set,out=[];
+ d.querySelectorAll('a[href]').forEach(a=>{let u;try{u=new URL(a.getAttribute('href'),url)}catch{return}const t=a.textContent.replace(/\s+/g,' ').trim();u.hash='';
+ if(t.length>=25&&u.host.includes(host)&&u.pathname.length>=12&&!s.has(u.href)){s.add(u.href);const im=a.querySelector('img')||(a.parentElement&&a.parentElement.querySelector('img')),sr=im&&(im.getAttribute('src')||im.getAttribute('data-src'));let img='';try{img=sr?new URL(sr,url).href:''}catch{}out.push({url:u.href,img,title:t,body:'',ts:now(),est:1})}});return out}
+async function chanId(u){if(CH[u])return CH[u];let c=[];const m=u.match(/channel\/(UC[\w-]{22})/);if(m)c=[m[1]];else{const h=await get(u,1);for(const r of [/feeds\/videos\.xml\?channel_id=(UC[\w-]{22})/,/rel="canonical" href="https:\/\/www\.youtube\.com\/channel\/(UC[\w-]{22})/,/itemprop="(?:channelId|identifier)" content="(UC[\w-]{22})/,/"externalId":"(UC[\w-]{22})"/,/"channelId":"(UC[\w-]{22})"/]){const x=h.match(r);if(x)c.push(x[1])}}
+ for(const id of new Set(c)){try{await get('https://www.youtube.com/feeds/videos.xml?channel_id='+id,1);CH[u]=id;LS.kp_chan2=JSON.stringify(CH);return id}catch{}}throw new Error('YouTube channel id not found')}
+async function transcript(id){try{const h=await get('https://www.youtube.com/watch?v='+id,1),m=h.match(/"captionTracks":(\[.*?\])/);if(!m)throw 0;const T=JSON.parse(m[1]),t=['kn','en','hi'].map(l=>T.find(x=>x.languageCode==l)).find(Boolean)||T[0],j=JSON.parse(await get(t.baseUrl+'&fmt=json3',1)),s=j.events.flatMap(e=>(e.segs||[]).map(x=>x.utf8)).join(' ').replace(/\s+/g,' ').trim();if(!s)throw 0;TOK++;return s}catch{TNO++;return''}}
+async function fetchSrc([n,u,k]){if(k=='youtube'){u='https://www.youtube.com/feeds/videos.xml?channel_id='+await chanId(u);k='rss'}
+ if(k=='auto'){const f=await discover(u);if(f){u=f;k='rss'}else k='web'}
+ return k=='web'?scrape(await get(u),u):parseFeed(await get(u))}
+async function article(u){try{const d=new DOMParser().parseFromString(await get(u),'text/html'),o=d.querySelector('meta[property="og:image"],meta[name="twitter:image"]');let img='';try{img=o?new URL(o.getAttribute('content'),u).href:''}catch{}return{img,t:[...d.querySelectorAll('p')].map(p=>p.textContent.replace(/\s+/g,' ').trim()).filter(p=>p.length>40).join(' ').slice(0,6000)}}catch{return{t:'',img:''}}}
+async function tr(t){if(!t||!IND.test(t))return t;const o=[];try{for(let i=0;i<t.length;i+=1200){const r=JSON.parse(await get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q='+encodeURIComponent(t.slice(i,i+1200))));o.push(r[0].map(x=>x[0]).join(''))}return o.join(' ')}catch(e){LOG['Translation']='failed: '+e.message;return t}}
+const STOP=new Set('the and for are was were with from that this have has had will said says after over into its their his her they not but also more than who which about been new'.split(' '));
+function summarize(t,n=3){const s=t.split(/(?<=[.!?])\s+/).map(x=>x.trim()).filter(x=>x.length>30);if(s.length<=n)return s.join(' ');const f={};(t.toLowerCase().match(/\w+/g)||[]).forEach(w=>STOP.has(w)||(f[w]=(f[w]||0)+1));
+ return s.map((x,i)=>[(x.toLowerCase().match(/\w+/g)||[]).reduce((a,w)=>a+(f[w]||0),0)/(Math.sqrt(x.split(' ').length)+1),i]).sort((a,b)=>b[0]-a[0]).slice(0,n).sort((a,b)=>a[1]-b[1]).map(z=>s[z[1]]).join(' ')}
+const RX={},rx=w=>RX[w]||(RX[w]=new RegExp('(?<!\\w)'+w.toLowerCase().replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'(?!\\w)')),has=(t,k)=>k.some(w=>rx(w).test(t));
+const toks=t=>new Set((t.toLowerCase().match(/[a-z0-9]+/g)||[]).filter(w=>w.length>3&&!STOP.has(w)));
+const TK=new Map,tk=i=>{let v=TK.get(i.id);if(!v){v=[toks(i.title),toks(i.title+' '+(i.summary||'').slice(0,300))];TK.set(i.id,v)}return v},ov=(a,b)=>{let n=0;a.forEach(w=>b.has(w)&&n++);return n};
+function group(id,title,ts,extra){const A=[toks(title),toks(title+' '+(extra||''))],hit=[];
+ for(const i of ITEMS){if(Math.abs(i.ts-ts)>172800)continue;const B=tk(i),nt=ov(A[0],B[0]),nc=ov(A[1],B[1]);if((A[0].size&&B[0].size&&nt/(A[0].size+B[0].size-nt)>=.4)||(nc>=4&&nc/(A[1].size+B[1].size-nc)>=.22)){if(!hit.includes(i.grp))hit.push(i.grp)}}
+ if(!hit.length)return id;const g=hit[0];if(hit.length>1)ITEMS.forEach(i=>{if(hit.includes(i.grp))i.grp=g});return g}
+function recluster(){const all=ITEMS.slice().sort((a,b)=>a.ts-b.ts);ITEMS=[];all.forEach(i=>{i.grp=group(i.id,i.title,i.ts,i.summary);i.cv=3;ITEMS.push(i)})}
+const pseudo=t=>/[.!?]/.test(t)?t:t.replace(/((?:\S+\s+){24})/g,'$1. ');
+function classify(it,sec,extra=''){const tx=(it.title+' '+it.summary+' '+it.tOrig+' '+extra).toLowerCase(),k=has(tx,CFG.KAR),o=has(tx,CFG.OTHER);
+ it.kar=(sec?!(o&&!k):k)?1:0;it.cat=Object.keys(CFG.CAT).filter(c=>has(tx,CFG.CAT[c]));it.tags=Object.keys(CFG.TAGS).filter(t=>has(tx,CFG.TAGS[t]));it.vf=0;if(it.kind=='video'&&!it.summary&&!(o&&!k)){it.vf=1;it.kar=1}it.v=2}
+async function ingest(s,e){let body=e.body,img=e.img||'';
+ if(e.video)body=await transcript(e.video);else if(body.length<150){const A=await article(e.url);body=A.t||body;img=img||A.img}
+ const te=await tr(e.title),be=await tr(body.slice(0,3000));
+ const sm=body?summarize(pseudo(be)).slice(0,520)||te:'';const it={id:e.url,grp:'',source:s[0],kind:e.video?'video':'article',url:e.url,img,tOrig:e.title,title:te,summary:sm,lang:KN.test(e.title+body)?'KN':/[\u0900-\u097F]/.test(e.title+body)?'HI':'EN',ts:e.ts,est:e.est?1:0,fetched:now(),cv:3};
+ classify(it,s[3],be.slice(0,1500));it.grp=group(e.url,te,e.ts,sm+' '+be.slice(0,300));LOG['YouTube transcripts']=TOK+' fetched, '+TNO+' unavailable';ITEMS.push(it);dirty=1;save()}
+async function run(){if(busy)return;busy=true;DONE=0;const cut=now()-CFG.keepDays*86400,ids=new Set(ITEMS.map(i=>i.id)),q=[...CFG.S];status();
+ const w=async()=>{while(q.length){const s=q.shift();let n=0;try{for(const e of await fetchSrc(s)){if(n>=CFG.perSource)break;if(e.ts<cut||ids.has(e.url))continue;ids.add(e.url);await ingest(s,e);n++}LOG[s[0]]=n+' new'}catch(x){LOG[s[0]]='error: '+x.message}DONE++;status()}};
+ await Promise.all([w(),w(),w(),w()]);busy=false;last=now();LS.kp_last=last;status();render()}
+const fmt=(t,e)=>(e?'First seen ':'')+new Date(t*1000).toLocaleString('en-IN',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'});
+const ago=t=>{const m=Math.max(1,Math.round((now()-t)/60));return m<60?m+' min ago':m<1440?Math.round(m/60)+' h ago':Math.round(m/1440)+' d ago'};
+function status(){$('st').textContent=(busy?'Fetching '+DONE+'/'+CFG.S.length+'… ':'')+(last?'Last update '+ago(last):'First fetch can take 10+ minutes')+' · '+ITEMS.length+' stories';
+ $('log').innerHTML='<div><b>Mode:</b> '+(EXT?'extension. <b>Site access:</b> '+PERM:'shared feed, refreshed by the scheduled job')+'</div>'+Object.entries(LOG).map(([k,v])=>'<div>'+esc(k)+': '+esc(v)+'</div>').join('')}
+function groups(){const G={};ITEMS.slice().sort((a,b)=>b.ts-a.ts).forEach(r=>{const g=G[r.grp]||(G[r.grp]={items:[],tags:new Set,cats:new Set,kar:0,vf:0,ts:r.ts,fetched:0,lead:r});g.items.push(r);(r.tags||[]).forEach(t=>g.tags.add(t));(r.cat||[]).forEach(c=>g.cats.add(c));g.vf|=r.vf||0;g.kar|=r.kar;g.fetched=Math.max(g.fetched,r.fetched);if((r.summary||'').length>(g.lead.summary||'').length)g.lead=r});
+ return Object.values(G).map(g=>{g.foc=g.kar&&(g.cats.size||g.vf)?1:0;g.n=new Set(g.items.map(i=>i.source)).size;g.langs=[...new Set(g.items.map(i=>(i.lang||'en').toUpperCase()))];g.img=g.lead.img||(g.items.find(i=>i.img)||{}).img||'';return g})}
+function fill(id,v){const s=$(id),c=s.value,f=s.options[0];s.innerHTML='';s.append(f);v.sort().forEach(x=>s.add(new Option(x,x)));s.value=c}
+const DAY=86400,MON='Jan Feb Mar Apr May Jun Jul Aug Sep Oct Nov Dec'.split(' '),CODE={'Politics':'POL','Law & Order':'LAW','Governance':'GOV'},p2=n=>String(n).padStart(2,'0');
+let CAT='';const sod=t=>{const d=new Date(t*1000);d.setHours(0,0,0,0);return d.getTime()/1000};
+const fs=(t,e)=>{const d=new Date(t*1000);return (e?'~':'')+d.getDate()+' '+MON[d.getMonth()]+' '+p2(d.getHours())+':'+p2(d.getMinutes())};
+function inRange(g){const v=$('dt').value,t=g.ts,s=sod(now());if(v=='24h')return t>now()-DAY;if(v=='today')return t>=s;if(v=='yday')return t>=s-DAY&&t<s;if(v=='pick'&&$('day').value){const d=new Date($('day').value+'T00:00:00').getTime()/1000;return t>=d&&t<d+DAY}return true}
+const av=n=>{let h=0;for(const c of n)h=(h*31+c.charCodeAt(0))%360;return `<span class="av" style="background:hsl(${h} 45% 38%)" title="${esc(n)}">${esc(n.replace(/\(.*?\)/g,'').trim().split(/\s+/).slice(0,2).map(w=>w[0]).join('').toUpperCase())}</span>`};
+const cats=g=>[...g.cats].map(c=>`<b class="cat">${CODE[c]}</b>`).join('')||'<b class="cat">VIDEO</b>',lgs=g=>`<span class="lg">${g.langs.join('·')}</span>`,cnt=g=>`${g.n} outlet${g.n>1?'s':''} · ${g.langs.length} language${g.langs.length>1?'s':''}`;
+function banner(D){const sc=g=>g.n*3+Math.max(0,12-(now()-g.ts)/3600)+(g.cats.has('Politics')?2:0)+(g.cats.has('Law & Order')?1.5:0);
+ const T=D.filter(g=>g.foc&&g.ts>now()-DAY).sort((a,b)=>sc(b)-sc(a)).slice(0,5);
+ $('top').innerHTML=T.length?'<h3>Top of the record</h3><div class="sc2">'+T.map(g=>`<a class="tc" href="${esc(g.lead.url)}" target="_blank" rel="noopener">${g.img?`<div class="th"><img src="${esc(g.img)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>`:''}<div class="in"><div class="mt">${cats(g)}<span>${esc(g.lead.source)}</span><span>${fs(g.ts,g.lead.est)}</span>${lgs(g)}</div><b>${esc(g.lead.title)}</b><small>${cnt(g)}</small></div></a>`).join('')+'</div>':''}
+function render(){const D=groups(),q=$('q').value.toLowerCase(),src=$('src').value,tag=$('tag').value,sort=$('sort').value;fill('src',[...new Set(ITEMS.map(i=>i.source))]);fill('tag',[...new Set(D.flatMap(g=>[...g.tags]))]);
+ const base=D.filter(g=>(mode=='all'||g[mode])&&inRange(g)&&(!src||g.items.some(i=>i.source==src))&&(!tag||g.tags.has(tag))&&(!q||g.items.some(i=>(i.title+i.summary+i.tOrig).toLowerCase().includes(q))));
+ document.querySelectorAll('[data-c]').forEach(b=>{b.querySelector('b').textContent=base.filter(g=>!b.dataset.c||g.cats.has(b.dataset.c)).length;b.classList.toggle('on',b.dataset.c==CAT)});
+ const L=base.filter(g=>!CAT||g.cats.has(CAT)).sort(sort=='rep'?(a,b)=>b.n-a.n||b.ts-a.ts:(a,b)=>b.ts-a.ts);
+ banner(D);$('hd').textContent='Today · '+L.length+' records · '+new Set(L.flatMap(g=>g.items.map(i=>i.source))).size+' outlets · '+(sort=='rep'?'most-reported first':'latest first');
+ $('list').innerHTML=L.length?L.slice(0,LIM).map((g,k)=>{const a=g.lead,O=[...new Set(g.items.map(i=>i.source))],nw=g.fetched>seen,one=g.n==1;
+ return `<article class="row ${g.img?'hasimg':''} ${one?'single':''} ${nw?'new':''}"><span class="n">${k+1}</span>${g.img?`<div class="th"><img src="${esc(g.img)}" alt="" loading="lazy" referrerpolicy="no-referrer"></div>`:''}
+ <div><div class="mt">${cats(g)}<span>${fs(g.ts,a.est)}</span>${lgs(g)}${nw?'<span class="nw">NEW</span>':''}${g.kind=='video'||a.kind=='video'?'<span class="lg">VIDEO</span>':''}${[...g.tags].map(t=>`<span class="lg">${esc(t)}</span>`).join('')}</div>
+ <h2><a href="${esc(a.url)}" target="_blank" rel="noopener">${esc(a.title)}</a></h2>${orig&&a.lang!='EN'&&a.lang!='en'?`<p class="orig">${esc(a.tOrig)}</p>`:''}${a.summary?`<p class="sum">${esc(a.summary)}</p>`:''}
+ <div class="ot">${O.slice(0,4).map(av).join('')}${O.length>4?`<span class="t">+${O.length-4}</span>`:''}<span class="t">${cnt(g)}</span>${one?'<em>one source so far</em>':''}</div>
+ ${one?'':`<details><summary>Who reported it (${g.items.length})</summary><ul>${g.items.slice().sort((x,y)=>x.ts-y.ts).map(x=>`<li><small><span class="lg">${(x.lang||'en').toUpperCase()}</span> <b>${esc(x.source)}</b> · ${fs(x.ts,x.est)}</small><a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.title)}</a>${(x.lang||'EN').toUpperCase()!='EN'?`<small>${esc(x.tOrig)}</small>`:''}</li>`).join('')}</ul></details>`}</div></article>`}).join('')+(L.length>LIM?`<p class="empty"><button id="more">Show ${Math.min(60,L.length-LIM)} more (${L.length-LIM} left)</button></p>`:''):'<p class="empty">No stories match yet. Keep this tab open; stories appear as outlets are fetched. Try “All Karnataka”.</p>'}
+const setTheme=t=>{document.documentElement.dataset.theme=t;LS.kp_theme=t;$('tg').textContent=t=='dark'?'Light':'Dark'};
+setTheme(LS.kp_theme||(window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'));$('tg').onclick=()=>setTheme(document.documentElement.dataset.theme=='dark'?'light':'dark');
+$('today').textContent=new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+document.querySelectorAll('[data-m]').forEach(b=>b.onclick=()=>{mode=b.dataset.m;LIM=60;document.querySelectorAll('[data-m]').forEach(x=>x.classList.toggle('on',x==b));render()});
+document.querySelectorAll('[data-c]').forEach(b=>b.onclick=()=>{CAT=b.dataset.c;LIM=60;render()});
+$('day').onchange=()=>{$('dt').value='pick';LIM=60;render()};['dt','sort','src','tag','q'].forEach(i=>$(i).oninput=()=>{LIM=60;render()});
+$('list').onclick=e=>{if(e.target.id=='more'){LIM+=60;render()}};$('og').onclick=e=>{orig=!orig;e.target.classList.toggle('on',orig);render()};$('rf').onclick=run;
+if(EXT&&chrome.permissions)chrome.permissions.contains({origins:['<all_urls>']}).then(ok=>{PERM=ok?'granted':'NOT granted (extension Details > Site access > On all sites)';status()});
+window.__out=()=>({items:ITEMS,log:LOG});
+if(window.__BUILD){CFG.keepDays=3;ITEMS=window.__STATE||[];ITEMS.forEach(i=>{if(i.v!==2){const s=CFG.S.find(x=>x[0]==i.source);i.cat=[];classify(i,s&&s[3])}});if(ITEMS.some(i=>i.cv!==3))recluster();run().then(()=>{window.__done=1})}
+else if(!EXT){const load=()=>fetch('news.json?'+Date.now()).then(r=>r.json()).then(j=>{ITEMS=j.items||[];last=j.updated||0;LOG=j.log||{};render();status()}).catch(()=>{$('st').textContent='Could not load the feed'});$('rf').onclick=load;load();setInterval(load,300000);setInterval(status,60000)}
+else (ST?ST.get('kp_items'):Promise.resolve({})).then(r=>{ITEMS=r.kp_items||[];ITEMS.forEach(i=>{if(i.v!==2){const s=CFG.S.find(x=>x[0]==i.source);i.cat=[];classify(i,s&&s[3])}});if(ITEMS.some(i=>i.cv!==3)){recluster();save()}render();status();run();setInterval(run,CFG.refreshMin*60000);setInterval(status,60000);setInterval(()=>{if(dirty){dirty=0;render()}},2500)});
