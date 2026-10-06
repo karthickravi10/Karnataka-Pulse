@@ -29,7 +29,7 @@ let T;const save=()=>{ITEMS=ITEMS.filter(i=>i.ts>now()-(CFG.keepDays+1)*86400);c
 addEventListener('pagehide',()=>ST&&ST.set({kp_items:ITEMS}));
 addEventListener('error',e=>{if(e.target.tagName=='IMG'){const t=e.target.closest('.th');t&&t.remove()}},true);
 const PX=[u=>'https://api.allorigins.win/raw?url='+encodeURIComponent(u),u=>'https://api.codetabs.com/v1/proxy?quest='+encodeURIComponent(u),u=>'https://corsproxy.io/?url='+encodeURIComponent(u)];
-async function get(url,only){const why=[];for(const [i,t] of (only?[url]:[url,...PX.map(p=>p(url))]).entries()){const nm=i?'proxy'+i:'direct';try{const c=new AbortController(),id=setTimeout(()=>c.abort(),20000),r=await fetch(t,{signal:c.signal,credentials:'omit',referrerPolicy:'no-referrer'});clearTimeout(id);if(r.ok){const x=await r.text();if(x.length)return x;why.push(nm+': empty')}else why.push(nm+': HTTP '+r.status)}catch(e){why.push(nm+': '+(e.name=='AbortError'?'timeout':'blocked'))}}throw new Error(why.join(', '))}
+async function get(url,only){const why=[];for(const [i,t] of (only||window.__BUILD?[url]:[url,...PX.map(p=>p(url))]).entries()){const nm=i?'proxy'+i:'direct';try{const c=new AbortController(),id=setTimeout(()=>c.abort(),20000),r=await fetch(t,{signal:c.signal,credentials:'omit',referrerPolicy:'no-referrer'});clearTimeout(id);if(r.ok){const x=await r.text();if(x.length)return x;why.push(nm+': empty')}else why.push(nm+': HTTP '+r.status)}catch(e){why.push(nm+': '+(e.name=='AbortError'?'timeout':'blocked'))}}throw new Error(why.join(', '))}
 const ta=document.createElement('textarea');
 const clean=h=>{ta.innerHTML=(h||'').replace(/<(script|style)[\s\S]*?<\/\1>/gi,' ').replace(/<[^>]+>/g,' ');return ta.value.replace(/\s+/g,' ').trim()};
 const esc=s=>(s||'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -53,7 +53,15 @@ async function fetchSrc([n,u,k]){if(k=='youtube'){u='https://www.youtube.com/fee
  if(k=='auto'){const f=await discover(u);if(f){u=f;k='rss'}else k='web'}
  return k=='web'?scrape(await get(u),u):parseFeed(await get(u))}
 async function article(u){try{const d=new DOMParser().parseFromString(await get(u),'text/html'),o=d.querySelector('meta[property="og:image"],meta[name="twitter:image"]');let img='';try{img=o?new URL(o.getAttribute('content'),u).href:''}catch{}return{img,t:[...d.querySelectorAll('p')].map(p=>p.textContent.replace(/\s+/g,' ').trim()).filter(p=>p.length>40).join(' ').slice(0,6000)}}catch{return{t:'',img:''}}}
-async function tr(t){if(!t||!IND.test(t))return t;const o=[];try{for(let i=0;i<t.length;i+=1200){const r=JSON.parse(await get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q='+encodeURIComponent(t.slice(i,i+1200))));o.push(r[0].map(x=>x[0]).join(''))}return o.join(' ')}catch(e){LOG['Translation']='failed: '+e.message;return t}}
+const slp=ms=>new Promise(r=>setTimeout(r,ms)),TS={g:0,c:0,f:0};let TRF=0,GF=0,TQ=Promise.resolve();
+const tlog=()=>{LOG['Translation']='Google '+TS.g+' ok, Cloudflare AI '+TS.c+' ok, failed '+TS.f+(TRF>=6?' (paused: both services are refusing requests)':'')};
+async function gtr(t){for(let k=0;k<3;k++){try{const r=JSON.parse(await get('https://translate.googleapis.com/translate_a/single?client=gtx&sl=auto&tl=en&dt=t&q='+encodeURIComponent(t),1));return r[0].map(x=>x[0]).join('')}catch{await slp(1500*(k+1))}}throw 0}
+async function ctr(t){const c=window.__CF;if(!c)throw 0;for(const L of [['kn','hi','en'],['kannada','hindi','english']]){const r=await fetch('https://api.cloudflare.com/client/v4/accounts/'+c.a+'/ai/run/@cf/meta/m2m100-1.2b',{method:'POST',headers:{Authorization:'Bearer '+c.t,'Content-Type':'application/json'},body:JSON.stringify({text:t,source_lang:KN.test(t)?L[0]:L[1],target_lang:L[2]})}),j=await r.json().catch(()=>({}));if(j.success&&j.result&&j.result.translated_text)return j.result.translated_text}throw 0}
+async function tr1(t){if(TRF>=6){TS.f++;tlog();return null}
+ if(GF<3){try{const o=await gtr(t);TS.g++;TRF=0;GF=0;tlog();return o}catch{GF++}}
+ try{const o=await ctr(t);TS.c++;TRF=0;tlog();return o}catch{}TRF++;TS.f++;tlog();return null}
+function tr(t){if(!t||!IND.test(t))return Promise.resolve(t);const job=TQ.then(async()=>{const o=[];for(let i=0;i<t.length;i+=1200){const x=await tr1(t.slice(i,i+1200));if(x==null)return t;o.push(x);await slp(400)}return o.join(' ')});TQ=job.catch(()=>{});return job}
+async function fixOld(){let n=0;for(const i of ITEMS){if(n>=120||TRF>=3)break;if(IND.test(i.title)||IND.test(i.summary||'')){n++;const s=CFG.S.find(x=>x[0]==i.source);i.title=await tr(i.title);if(i.summary)i.summary=await tr(i.summary);TK.delete(i.id);classify(i,s&&s[3])}}if(n)recluster()}
 const STOP=new Set('the and for are was were with from that this have has had will said says after over into its their his her they not but also more than who which about been new'.split(' '));
 function summarize(t,n=3){const s=t.split(/(?<=[.!?])\s+/).map(x=>x.trim()).filter(x=>x.length>30);if(s.length<=n)return s.join(' ');const f={};(t.toLowerCase().match(/\w+/g)||[]).forEach(w=>STOP.has(w)||(f[w]=(f[w]||0)+1));
  return s.map((x,i)=>[(x.toLowerCase().match(/\w+/g)||[]).reduce((a,w)=>a+(f[w]||0),0)/(Math.sqrt(x.split(' ').length)+1),i]).sort((a,b)=>b[0]-a[0]).slice(0,n).sort((a,b)=>a[1]-b[1]).map(z=>s[z[1]]).join(' ')}
@@ -69,7 +77,7 @@ function classify(it,sec,extra=''){const tx=(it.title+' '+it.summary+' '+it.tOri
  it.kar=(sec?!(o&&!k):k)?1:0;it.cat=Object.keys(CFG.CAT).filter(c=>has(tx,CFG.CAT[c]));it.tags=Object.keys(CFG.TAGS).filter(t=>has(tx,CFG.TAGS[t]));it.vf=0;if(it.kind=='video'&&!it.summary&&!(o&&!k)){it.vf=1;it.kar=1}it.v=2}
 async function ingest(s,e){let body=e.body,img=e.img||'';
  if(e.video)body=await transcript(e.video);else if(body.length<150){const A=await article(e.url);body=A.t||body;img=img||A.img}
- const te=await tr(e.title),be=await tr(body.slice(0,3000));
+ const te=await tr(e.title),be=await tr(body.slice(0,GF>=3?600:1800));
  const sm=body?summarize(pseudo(be)).slice(0,520)||te:'';const it={id:e.url,grp:'',source:s[0],kind:e.video?'video':'article',url:e.url,img,tOrig:e.title,title:te,summary:sm,lang:KN.test(e.title+body)?'KN':/[\u0900-\u097F]/.test(e.title+body)?'HI':'EN',ts:e.ts,est:e.est?1:0,fetched:now(),cv:3};
  classify(it,s[3],be.slice(0,1500));it.grp=group(e.url,te,e.ts,sm+' '+be.slice(0,300));LOG['YouTube transcripts']=TOK+' fetched, '+TNO+' unavailable';ITEMS.push(it);dirty=1;save()}
 async function run(){if(busy)return;busy=true;DONE=0;const cut=now()-CFG.keepDays*86400,ids=new Set(ITEMS.map(i=>i.id)),q=[...CFG.S];status();
@@ -111,6 +119,6 @@ $('day').onchange=()=>{$('dt').value='pick';LIM=60;render()};['dt','sort','src',
 $('list').onclick=e=>{if(e.target.id=='more'){LIM+=60;render()}};$('og').onclick=e=>{orig=!orig;e.target.classList.toggle('on',orig);render()};$('rf').onclick=run;
 if(EXT&&chrome.permissions)chrome.permissions.contains({origins:['<all_urls>']}).then(ok=>{PERM=ok?'granted':'NOT granted (extension Details > Site access > On all sites)';status()});
 window.__out=()=>({items:ITEMS,log:LOG});
-if(window.__BUILD){CFG.keepDays=3;ITEMS=window.__STATE||[];ITEMS.forEach(i=>{if(i.v!==2){const s=CFG.S.find(x=>x[0]==i.source);i.cat=[];classify(i,s&&s[3])}});if(ITEMS.some(i=>i.cv!==3))recluster();run().then(()=>{window.__done=1})}
+if(window.__BUILD){CFG.keepDays=3;ITEMS=window.__STATE||[];ITEMS.forEach(i=>{if(i.v!==2){const s=CFG.S.find(x=>x[0]==i.source);i.cat=[];classify(i,s&&s[3])}});if(ITEMS.some(i=>i.cv!==3))recluster();fixOld().then(()=>run()).then(()=>{window.__done=1})}
 else if(!EXT){const load=()=>fetch('news.json?'+Date.now()).then(r=>r.json()).then(j=>{ITEMS=j.items||[];last=j.updated||0;LOG=j.log||{};render();status()}).catch(()=>{$('st').textContent='Could not load the feed'});$('rf').onclick=load;load();setInterval(load,300000);setInterval(status,60000)}
 else (ST?ST.get('kp_items'):Promise.resolve({})).then(r=>{ITEMS=r.kp_items||[];ITEMS.forEach(i=>{if(i.v!==2){const s=CFG.S.find(x=>x[0]==i.source);i.cat=[];classify(i,s&&s[3])}});if(ITEMS.some(i=>i.cv!==3)){recluster();save()}render();status();run();setInterval(run,CFG.refreshMin*60000);setInterval(status,60000);setInterval(()=>{if(dirty){dirty=0;render()}},2500)});
