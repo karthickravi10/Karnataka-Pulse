@@ -25,7 +25,7 @@ small,.mt,.ot{color:var(--mut);font-size:12.5px}
 .ot{display:flex;align-items:center;gap:6px;flex-wrap:wrap}.av{width:24px;height:24px;border-radius:50%;color:#fff;font-size:10px;font-weight:700;display:inline-grid;place-items:center;margin-right:-8px;border:2px solid var(--sf)}.ot .t{margin-left:10px}
 details{margin-top:8px}summary{cursor:pointer;color:var(--mut);font-size:13px}details ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
 details li{border-left:3px solid var(--line);padding-left:10px;font-size:14px}details li small{display:block}
-.tbtn{font-size:12px;padding:1px 9px;margin:0 0 8px;color:var(--mut)}.empty{text-align:center;color:var(--mut);padding:40px 0}footer{padding-bottom:60px}.pill{border-radius:99px}
+.desc{margin:8px 0}.desc>summary{cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border:1px solid var(--line);border-radius:6px;color:var(--mut);font-size:13px;list-style:none}.desc>summary::-webkit-details-marker{display:none}.desc>summary::before{content:"\25B8"}.desc[open]>summary::before{content:"\25BE"}.dbody{margin-top:8px}.tbtn{font-size:12px;padding:1px 9px;margin:0 0 8px;color:var(--mut)}.empty{text-align:center;color:var(--mut);padding:40px 0}footer{padding-bottom:60px}.pill{border-radius:99px}
 @media(max-width:620px){.row{grid-template-columns:1fr}.n{display:none}.th img{width:100%;height:170px}}
 </style>
 <header><div class="w"><h1>Karnataka Pulse</h1><small id="today"></small><span class="sp"></span><small id="st">Starting…</small><button id="rf">Refresh</button><button id="tg">Dark</button></div></header>
@@ -37,7 +37,7 @@ details li{border-left:3px solid var(--line);padding-left:10px;font-size:14px}de
 <select id="sort" aria-label="Sort"><option value="rep">Most reported first</option><option value="new">Latest first</option></select>
 <select id="dt" aria-label="Date"><option value="all">Any date</option><option value="24h">Last 24 hours</option><option value="today">Today</option><option value="yday">Yesterday</option><option value="pick">Pick a day…</option></select><input id="day" type="date" aria-label="Pick a day">
 <select id="src"><option value="">All outlets</option></select><select id="tag"><option value="">All parties and leaders</option></select>
-<input id="q" type="search" placeholder="Search stories" aria-label="Search stories"><button id="gen" title="Translates the first 20 summaries shown">English summaries</button><button id="og">Kannada originals</button></div>
+<input id="q" type="search" placeholder="Search stories" aria-label="Search stories"><button id="og">Kannada originals</button></div>
 <main id="list"></main>
 <footer><details><summary>Source status</summary><div id="log"></div></details></footer></div>
 <script src="app.js"></script></html>
