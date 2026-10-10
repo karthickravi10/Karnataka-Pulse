@@ -26,10 +26,21 @@ small,.mt,.ot{color:var(--mut);font-size:12.5px}
 details{margin-top:8px}summary{cursor:pointer;color:var(--mut);font-size:13px}details ul{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:8px}
 details li{border-left:3px solid var(--line);padding-left:10px;font-size:14px}details li small{display:block}
 .desc{margin:8px 0}.desc>summary{cursor:pointer;display:inline-flex;align-items:center;gap:6px;padding:3px 12px;border:1px solid var(--line);border-radius:6px;color:var(--mut);font-size:13px;list-style:none}.desc>summary::-webkit-details-marker{display:none}.desc>summary::before{content:"\25B8"}.desc[open]>summary::before{content:"\25BE"}.dbody{margin-top:8px}.tbtn{font-size:12px;padding:1px 9px;margin:0 0 8px;color:var(--mut)}.empty{text-align:center;color:var(--mut);padding:40px 0}footer{padding-bottom:60px}.pill{border-radius:99px}
+
+.zr{padding-top:0!important}.zr button{border-radius:6px!important;font-size:13px}.zn{border:1px solid #2a9d8f;color:#2a9d8f;border-radius:4px;padding:0 6px;font-size:11px;font-weight:600}:root[data-theme=dark] .zn{color:#5fd3c4;border-color:#5fd3c4}
+.rbt{font-size:12px;padding:1px 9px;margin-left:auto;color:var(--mut)}
+#rpt{position:fixed;inset:0;background:rgba(0,0,0,.55);z-index:20;overflow:auto;padding:16px 10px}#rpt[hidden]{display:none}
+.rbox{max-width:860px;margin:0 auto;background:var(--sf);border:1px solid var(--line);border-radius:12px;padding:14px 20px 26px}
+.rbar{display:flex;gap:8px;align-items:center;flex-wrap:wrap;position:sticky;top:-14px;background:var(--sf);padding:10px 0;border-bottom:1px solid var(--line);margin-bottom:12px;z-index:1}.rbar b{font-size:16px}.rbar .sp{flex:1}
+.rctl{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:8px}.rctl label{font-size:13px;color:var(--mut);display:flex;gap:6px;align-items:center}
+#rbody h2.rh{font-size:21px;margin:6px 0}#rbody h3{margin:22px 0 8px}#rbody h4{font-size:15px;margin:14px 0 4px}#rbody p{margin:6px 0}
+.rl{padding-left:22px;display:grid;gap:12px;margin:6px 0}.rm{color:var(--mut);font-size:12.5px}.rs{font-size:14px;margin-top:2px}.rstat{color:var(--mut);font-size:14px}
+.rai{border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:14px 0;background:var(--bg)}.rai ul{padding-left:20px;margin:6px 0}.zlist{padding-left:20px;margin:4px 0}.zlist li{margin:5px 0}
+@media print{body>*:not(#rpt){display:none!important}:root,:root[data-theme=dark]{--bg:#fff;--sf:#fff;--ink:#111;--mut:#444;--line:#ccc;--chip:#eee}#rpt{position:static;background:#fff;padding:0;overflow:visible}.rbox{border:0;padding:0;max-width:none}.rbar,.rctl,.noprint,#rbody button{display:none!important}a{text-decoration:none}}
 @media(max-width:620px){.row{grid-template-columns:1fr}.n{display:none}.th img{width:100%;height:170px}}
 </style>
-<header><div class="w"><h1>Karnataka Pulse</h1><small id="today"></small><span class="sp"></span><small id="st">Starting…</small><button id="rf">Refresh</button><button id="tg">Dark</button></div></header>
-<nav class="tabs"><div class="w"><button data-c="" class="on">ALL <b>0</b></button><button data-c="Politics">POL <b>0</b></button><button data-c="Law &amp; Order">LAW <b>0</b></button><button data-c="Governance">GOV <b>0</b></button></div></nav>
+<header><div class="w"><h1>Karnataka Pulse</h1><small id="today"></small><span class="sp"></span><small id="st">Starting…</small><button id="rbtn">Daily report</button><button id="rf">Refresh</button><button id="tg">Dark</button></div></header>
+<nav class="tabs"><div class="w"><button data-c="" class="on">ALL <b>0</b></button><button data-c="Politics">POL <b>0</b></button><button data-c="Law &amp; Order">LAW <b>0</b></button><button data-c="Governance">GOV <b>0</b></button></div><div class="w zr"><button data-z="" class="on">All zones <b>0</b></button><button data-z="Bengaluru" title="Bengaluru Urban and Rural">Bengaluru <b>0</b></button><button data-z="OMR" title="Old Mysuru Region: Mysuru, Mandya, Hassan, Chamarajanagar, Ramanagara, Kodagu, Tumakuru, Kolar, Chikkaballapur">OMR <b>0</b></button><button data-z="Central" title="Shivamogga, Davanagere, Chitradurga, Chikkamagaluru">Central <b>0</b></button><button data-z="Coastal" title="Dakshina Kannada, Udupi and the Karwar coast">Coastal <b>0</b></button><button data-z="Kittur" title="Belagavi, Vijayapura, Bagalkot, Dharwad, Gadag, Haveri, Uttara Kannada">Kittur <b>0</b></button><button data-z="Kalyana" title="Kalaburagi, Bidar, Raichur, Koppal, Yadgir, Ballari, Vijayanagara">Kalyana <b>0</b></button><button data-z="Statewide" title="Stories that do not name a place">Statewide <b>0</b></button></div></nav>
 <div class="w">
 <section id="top"></section>
 <h3 id="hd">Today</h3>
@@ -40,4 +51,5 @@ details li{border-left:3px solid var(--line);padding-left:10px;font-size:14px}de
 <input id="q" type="search" placeholder="Search stories" aria-label="Search stories"><button id="og">Kannada originals</button></div>
 <main id="list"></main>
 <footer><details><summary>Source status</summary><div id="log"></div></details></footer></div>
+<div id="rpt" hidden role="dialog" aria-modal="true" aria-label="Report"><div class="rbox"><div class="rbar"><b id="rtitle">Report</b><span class="sp"></span><button id="rprint">Print / Save as PDF</button><button id="rcopy">Copy text</button><button id="rclose">Close</button></div><div class="rctl" id="rctl"></div><div id="rbody"></div></div></div>
 <script src="app.js"></script></html>
