@@ -170,7 +170,7 @@ function repRender(){const day=RP.mode=='day',o=(v,t,c)=>`<option value="${v}" $
  if(day)gs=repGroups();else{g=storyGroup();if(!g){$('rbody').innerHTML='<p>This story is no longer in the feed.</p>';return}}
  const dd=new Date(Date.now()-(RP.period=='yday'?DAY*1000:0)).toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
  $('rtitle').textContent=day?'Karnataka daily report · '+dd+(RP.zone?' · '+ZLONG[RP.zone]:''):'Detailed report';
- $('rctl').innerHTML=day?`<label>Period <select id="rp">${Object.entries(PERIODS).map(([v,t])=>o(v,t,RP.period)).join('')}</select></label><label>Stories <select id="rs">${o('foc','Karnataka focus',RP.scope)}${o('kar','All Karnataka',RP.scope)}</select></label><label>Zone <select id="rz"><option value="">All zones</option>${ZNAMES.concat('Statewide').map(z=>o(z,ZLONG[z],RP.zone)).join('')}</select></label>`:'<button id="rback">← Daily report</button>';
+ $('rctl').innerHTML=day?`<label>Period <select id="rp">${Object.entries(PERIODS).map(([v,t])=>o(v,t,RP.period)).join('')}</select></label><label>Stories <select id="rs">${o('foc','Politics, law & governance',RP.scope)}${o('kar','All Karnataka news',RP.scope)}</select></label><label>Zone <select id="rz"><option value="">All zones</option>${ZNAMES.concat('Statewide').map(z=>o(z,ZLONG[z],RP.zone)).join('')}</select></label>`:'<button id="rback">← Daily report</button>';
  const sc=$('rpt').scrollTop;$('rbody').innerHTML=day?dayHTML(gs):storyHTML(g);$('rpt').scrollTop=sc}
 function openRep(){$('rpt').hidden=false;document.body.style.overflow='hidden';repRender()}
 function closeRep(){$('rpt').hidden=true;document.body.style.overflow=''}
