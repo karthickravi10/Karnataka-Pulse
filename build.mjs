@@ -11,5 +11,7 @@ if (!dom.window.__done) console.log('Time limit reached, saving what was fetched
 const o = dom.window.__out(), now = Math.floor(Date.now() / 1000);
 const items = o.items.filter(i => i.ts > now - 3 * 86400);
 const out = JSON.stringify({ updated: now, items, log: o.log, chan: o.chan });
-fs.mkdirSync('state', { recursive: true }); fs.mkdirSync('site', { recursive: true }); fs.copyFileSync('index.html', 'site/index.html'); fs.copyFileSync('app.js', 'site/app.js'); fs.writeFileSync('state/news.json', out); fs.writeFileSync('site/news.json', out);
-console.log(items.length + ' stories saved'); console.log(JSON.stringify(o.log, null, 1)); process.exit(0);
+// the public file only carries Karnataka stories; the saved state keeps everything so skipped stories are not fetched and translated again
+const pub = JSON.stringify({ updated: now, items: items.filter(i => i.kar), log: o.log, chan: o.chan });
+fs.mkdirSync('state', { recursive: true }); fs.mkdirSync('site', { recursive: true }); fs.copyFileSync('index.html', 'site/index.html'); fs.copyFileSync('app.js', 'site/app.js'); fs.writeFileSync('state/news.json', out); fs.writeFileSync('site/news.json', pub);
+console.log(items.length + ' stories saved, ' + items.filter(i => i.kar).length + ' Karnataka stories published (' + Math.round(pub.length / 1024) + ' KB)'); console.log(JSON.stringify(o.log, null, 1)); process.exit(0);
