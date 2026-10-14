@@ -17,12 +17,16 @@ export async function onRequestPost({ request, env }) {
   if (!text || text.length > 12000) return json({ error: 'story text missing or too long' }, 400);
   if (!env.AI) return json({ error: 'the Workers AI binding named AI is not set on this Pages project' }, 500);
   const head = kind !== 'story' ? 'Period: ' + String(b.label || '').slice(0, 80) + '\nCoverage: ' + String(b.stats || '').slice(0, 80) + '\n\nNews items:\n' : 'Story: ' + String(b.label || '').slice(0, 200) + '\nToday: ' + new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'Asia/Kolkata' }) + '\n\nReports:\n';
+  // the first person to ask for a story brief writes it; everyone else gets the saved copy (needs the optional KV binding named BRIEFS)
+  const ck = kind === 'story' && b.key && env.BRIEFS ? 'b:' + String(b.key).slice(0, 200) : '';
+  if (ck) { try { const c = await env.BRIEFS.get(ck); if (c) return json({ text: c, model: 'saved copy', cached: true }); } catch {} }
   let err = '';
   for (const m of MODELS) {
     try {
       const r = await env.AI.run(m, { messages: [{ role: 'system', content: PROMPTS[kind] + (/qwen/.test(m) ? ' /no_think' : '') }, { role: 'user', content: head + text }], max_tokens: kind === 'story' ? 800 : 1800, temperature: 0.2 });
       const out = pick(r.response || r.output_text || (r.choices && r.choices[0] && ((r.choices[0].message && r.choices[0].message.content) || r.choices[0].text)) || r.output).replace(/<think>[\s\S]*?<\/think>/g, '').trim();
       if (!out) throw new Error('empty reply');
+      if (ck) { try { await env.BRIEFS.put(ck, out, { expirationTtl: 604800 }); } catch {} }
       return json({ text: out, model: m.split('/').pop() });
     } catch (e) {
       err = m.split('/').pop() + ': ' + (e.message || e);
