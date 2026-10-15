@@ -1,1 +1,1 @@
-{"name":"karnataka-pulse","private":true,"type":"module","dependencies":{"jsdom":"^24.1.0"}}
+{"name":"karnataka-pulse","private":true,"type":"module","dependencies":{"exceljs":"^4.4.0","jsdom":"^24.1.0"}}
