@@ -16,8 +16,8 @@ export async function onRequest({ request, env }) {
     const cur = (await env.BRIEFS.get('sm:' + b.date, 'json')) || {};
     for (const [id, p] of Object.entries(b.posts)) {
       if (!ID.test(id) || !p) continue;
-      const l = String(p.l || '').slice(0, 300), t = String(p.t || '').slice(0, 1500);
-      if (!t && !l) delete cur[id]; else cur[id] = { t, l: /^https?:\/\//.test(l) ? l : '', ts: Date.now() };
+      const l = String(p.l || '').slice(0, 300), t = String(p.t || '').slice(0, 1500), act = String(p.a || '').slice(0, 1500), loc = String(p.c || '').slice(0, 120);
+      if (!t && !l && !act && !loc) delete cur[id]; else cur[id] = { t, l: /^https?:\/\//.test(l) ? l : '', a: act, c: loc, ts: Date.now() };
     }
     await env.BRIEFS.put('sm:' + b.date, JSON.stringify(cur), { expirationTtl: 60 * 86400 });
     return json({ ok: true });
