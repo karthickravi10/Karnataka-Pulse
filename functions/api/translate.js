@@ -1,5 +1,5 @@
 // Translates one Kannada/Hindi summary to English on request (used by the "Show English" buttons).
-const MODELS = ['@cf/google/gemma-4-26b-a4b-it', '@cf/qwen/qwen3-30b-a3b-fp8', '@cf/mistralai/mistral-small-3.1-24b-instruct'];
+const MODELS = ['@cf/google/gemma-4-26b-a4b-it', '@cf/qwen/qwen3.8-27b', '@cf/mistralai/mistral-small-3.1-24b-instruct'];
 const SYS = 'You translate Kannada or Hindi news text into clear, natural English. Keep names of people, parties (BJP, Congress, JD(S)), places and organisations in their usual English spelling. Output only the translation, with no notes and no added quotation marks.';
 const pick = x => !x ? '' : typeof x === 'string' ? x : Array.isArray(x) ? x.map(pick).join('') : pick(x.text || x.content || x.response || x.output_text);
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });

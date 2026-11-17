@@ -3,7 +3,7 @@
 // The shared copy of the sheet needs the optional KV binding named BRIEFS.
 const GH = ['openai/gpt-4.1-mini', 'openai/gpt-4o-mini', 'meta/Llama-3.3-70B-Instruct'];
 const GEM = ['gemini-3.5-flash-lite', 'gemini-3.1-flash-lite'];
-const CF = ['@cf/google/gemma-4-26b-a4b-it', '@cf/qwen/qwen3-30b-a3b-fp8', '@cf/mistralai/mistral-small-3.1-24b-instruct'];
+const CF = ['@cf/google/gemma-4-26b-a4b-it', '@cf/qwen/qwen3.8-27b', '@cf/mistralai/mistral-small-3.1-24b-instruct'];
 const DAY = /^\d{4}-\d{2}-\d{2}$/;
 const json = (o, status = 200) => new Response(JSON.stringify(o), { status, headers: { 'content-type': 'application/json', 'cache-control': 'no-store' } });
 const pick = x => !x ? '' : typeof x === 'string' ? x : Array.isArray(x) ? x.map(pick).join('') : pick(x.text || x.content || x.response || x.output_text);
